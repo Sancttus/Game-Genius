@@ -1,6 +1,6 @@
-let ordem = [];
-let ordemClick = [];
-let pontuacao = 0;
+let order = [];
+let clickedOrder = [];
+let score = 0;
 
 //0 - verde
 //1 - vermelho
@@ -15,11 +15,11 @@ const yellow = document.querySelector('.amarelo');
 //cria ordem aletoria de cores
 let shuffleOrder = () => {
     let colorOrder = Math.floor(Math.random() * 4);
-    ordem[ordem.length] = colorOrder;
-    ordemClick = [];
+    order[order.length] = colorOrder;
+    clickedOrder = [];
 
-    for(let i in ordem) {
-        let elementColor = createColorElement(ordem[i]);
+    for(let i in order) {
+        let elementColor = createColorElement(order[i]);
         lightColor(elementColor, Number(i) + 1);
     }
 }
@@ -37,21 +37,21 @@ let lightColor = (element, number) => {
 
 //checa se os botoes clicados são os mesmos da ordem gerada no jogo
 let checkOrder = () => {
-    for(let i in ordemClick) {
-        if(ordemClick[i] != ordem[i]) {
+    for(let i in clickedOrder) {
+        if(clickedOrder[i] != order[i]) {
             gameOver();
             break;
         }
     }
-    if(ordemClick.length == ordem.length) {
+    if(clickedOrder.length == order.length) {
         alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível!`);
-        proxNivel();
+        nextLevel();
     }
 }
 
 //funcao para o clique do usuario
 let click = (color) => {
-    ordemClick[ordemClick.length] = color;
+    clickedOrder[clickedOrder.length] = color;
     createColorElement(color).classList.add('selected');
 
     setTimeout(() => {
@@ -74,16 +74,16 @@ let createColorElement = (color) => {
 }
 
 //funcao para proximo nivel do jogo
-let proxNivel = () => {
-    pontuacao++;
+let nextLevel = () => {
+    score++;
     shuffleOrder();
 }
 
 //funcao para game over
 let gameOver = () => {
     alert(`Pontuação: ${score}!\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo`);
-    ordem = [];
-    ordemClick = [];
+    order = [];
+    clickedOrder = [];
 
     playGame();
 }
@@ -91,9 +91,9 @@ let gameOver = () => {
 //funcao de inicio do jogo
 let playGame = () => {
     alert('Bem vindo ao Gênesis! Iniciando novo jogo!');
-    pontuacao = 0;
+    score = 0;
 
-    proxNivel();
+    nextLevel();
 }
 
 //eventos de clique para as cores
