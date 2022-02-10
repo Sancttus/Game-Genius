@@ -1,6 +1,6 @@
-let order = [];
-let clickedOrder = [];
-let score = 0;
+let ordem = [];
+let ordemClick = [];
+let pontuacao = 0;
 
 //0 - verde
 //1 - vermelho
@@ -15,11 +15,11 @@ const yellow = document.querySelector('.amarelo');
 //cria ordem aletoria de cores
 let shuffleOrder = () => {
     let colorOrder = Math.floor(Math.random() * 4);
-    order[order.length] = colorOrder;
-    clickedOrder = [];
+    ordem[ordem.length] = colorOrder;
+    ordemClick = [];
 
-    for(let i in order) {
-        let elementColor = createColorElement(order[i]);
+    for(let i in ordem) {
+        let elementColor = createColorElement(ordem[i]);
         lightColor(elementColor, Number(i) + 1);
     }
 }
@@ -37,21 +37,21 @@ let lightColor = (element, number) => {
 
 //checa se os botoes clicados são os mesmos da ordem gerada no jogo
 let checkOrder = () => {
-    for(let i in clickedOrder) {
-        if(clickedOrder[i] != order[i]) {
+    for(let i in ordemClick) {
+        if(ordemClick[i] != ordem[i]) {
             gameOver();
             break;
         }
     }
-    if(clickedOrder.length == order.length) {
-        alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível!`);
+    if(ordemClick.length == ordem.length) {
+        alert(`Pontuação: ${pontuacao}\nVocê acertou! Iniciando próximo nível!`);
         nextLevel();
     }
 }
 
 //funcao para o clique do usuario
 let click = (color) => {
-    clickedOrder[clickedOrder.length] = color;
+    ordemClick[ordemClick.length] = color;
     createColorElement(color).classList.add('selected');
 
     setTimeout(() => {
@@ -75,15 +75,15 @@ let createColorElement = (color) => {
 
 //funcao para proximo nivel do jogo
 let nextLevel = () => {
-    score++;
+    pontuacao++;
     shuffleOrder();
 }
 
 //funcao para game over
 let gameOver = () => {
-    alert(`Pontuação: ${score}!\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo`);
-    order = [];
-    clickedOrder = [];
+    alert(`Pontuação: ${pontuacao}!\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo`);
+    ordem = [];
+    ordemClick = [];
 
     playGame();
 }
@@ -91,7 +91,7 @@ let gameOver = () => {
 //funcao de inicio do jogo
 let playGame = () => {
     alert('Bem vindo ao Gênesis! Iniciando novo jogo!');
-    score = 0;
+    pontuacao = 0;
 
     nextLevel();
 }
